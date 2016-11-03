@@ -1,0 +1,67 @@
+-lowercase letters are registers
+
+Directions:
+-north, south, east, and west are absolute, while left, right, straight, and reverse are relative.
+
+-The number after the operator is how many stack members it consumes.
+
+
+Value vs. Reference:
+IDX0 is the first free stack location.
+-When reading from IDXN:
+	If IDXN contains just a value, that value is read. If IDXN contains a reference, the value of the register is read.
+	If IDXN does not exist, a random value is returned.
+-When writing:
+	If IDXN contains a value, that value in the stack is overwritten. If IDXN contains a reference, the value of that register is overwritten.
+
+VALUES
+0-9 are loaded onto the stack as values.
+a-z are loaded onto the stack as references.
+$ loads a random value onto the stack
+X is a reference to the current position's X
+Y is a reference to the current position's Y
+Z is a reference to the current position's Z
+
+MOVEMENT
+^ 0 [NORTH]
+v 0 [SOUTH]
+< 0 [WEST]
+> 0 [EAST]
+U 0 [UP]
+D 0 [DOWN]
+S 1 SKIP IN DIRECTION BY IDX0
+T 3 TELEPORT TO IDX2, IDX1, IDX0
+
+LOGICAL OPERATORS
+& 2 SETS IDX1 TO IDX1 & IDX0
+| 2 SETS IDX1 TO IDX1 | IDX0
+^ 2 SETS IDX1 TO IDX1 ^ IDX0
+
+OPERATORS
++ 2 SETS IDX1 TO IDX1 + IDX0
+- 2 SETS IDX1 TO IDX1 - IDX0
+* 2 SETS IDX1 TO IDX1 * IDX0
+/ 2 SETS IDX1 TO IDX1 / IDX0
+% 2 SETS IDX1 TO IDX1 % IDX0
+P 2 SETS IDX1 TO IDX1 ^ IDX0
+= 2 SETS IDX0 TO IDX1
+I 1 SETS IDX0 TO IDX0 + 1
+
+COMPARISON
+G 2 [RIGHT] IF IDX1 > IDX0, ELSE [LEFT]
+L 2 [RIGHT] IF IDX1 < IDX0, ELSE [LEFT]
+E 2 [RIGHT] IF IDX1 = IDX0, ELSE [LEFT]
+C 2 [RIGHT] IF IDX1 > IDX0, [STRAIGHT] IF IDX1 = IDX0, [LEFT] IF IDX1 < IDX0
+: 1 [RIGHT] IF NON-ZERO, ELSE [LEFT]
+
+FUNCTIONS AND THREADING
+B 1 BRANCH TO LEVEL IDX0. REGISTER STATES DUPLICATED, STACK CLEARED.
+F 1 FUNCTION CALL TO LEVEL IDX0. REGISTER STATES DUPLICATED, STACK DUPLICATED. RETURN VALUE OF FUNCTION WRITTEN TO IDX0.
+K 0 KILL. VALUE OF IDX0 WRITTEN TO PARENT STACK OR RETURNED.
+
+IO
+O 1 WRITE IDX0 TO STDOUT
+
+SELF-EDITING
+R 2 WRITE TOKEN CODE AT IDX1, IDX0 TO IDX0
+W 3 WRITE IDX2 TO MAP AT IDX1, IDX0
