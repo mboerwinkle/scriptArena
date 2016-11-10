@@ -3,10 +3,13 @@
 #define LEN 256
 class Map{
 public:
-	Map(Map clone);
 	Map(char* filename);
-	char dat[LEN*LEN*LEN];
+	int reg[26];
+	char* dat;
 	char* xptr(int y, int z);
+	char get(int x, int y, int z);
+	char get(int* c);
+	void printLayer(int layer);
 private:
 };
 #endif

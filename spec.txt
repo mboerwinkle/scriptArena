@@ -10,7 +10,7 @@ Value vs. Reference:
 IDX0 is the first free stack location.
 -When reading from IDXN:
 	If IDXN contains just a value, that value is read. If IDXN contains a reference, the value of the register is read.
-	If IDXN does not exist, a random value is returned.
+	If IDXN does not exist, zero is returned.
 -When writing:
 	If IDXN contains a value, that value in the stack is overwritten. If IDXN contains a reference, the value of that register is overwritten.
 
@@ -23,14 +23,14 @@ Y is a reference to the current position's Y
 Z is a reference to the current position's Z
 
 MOVEMENT
-^ 0 [NORTH]
-v 0 [SOUTH]
-< 0 [WEST]
-> 0 [EAST]
-U 0 [UP]
-D 0 [DOWN]
-S 1 SKIP IN DIRECTION BY IDX0
-T 3 TELEPORT TO IDX2, IDX1, IDX0
+^ 0 [north]
+v 0 [south]
+< 0 [west]
+> 0 [east]
+U 0 [up]
+D 0 [down]
+S 1 skip in direction by IDX0
+T 3 teleport to IDX2, IDX1, IDX0
 
 LOGICAL OPERATORS
 & 2 SETS IDX1 TO IDX1 & IDX0
