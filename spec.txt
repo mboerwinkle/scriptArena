@@ -23,12 +23,12 @@ Y is a reference to the current position's Y
 Z is a reference to the current position's Z
 
 MOVEMENT
-A 0 [north]
-V 0 [south]
-< 0 [west]
-> 0 [east]
-U 0 [up]
-D 0 [down]
+A* 0 [north]
+V* 0 [south]
+<* 0 [west]
+>* 0 [east]
+U* 0 [up]
+D* 0 [down]
 S 1 skip in direction by IDX0
 T 3 teleport to IDX2, IDX1, IDX0
 
@@ -38,14 +38,14 @@ LOGICAL OPERATORS
 ^ 2 SETS IDX1 TO IDX1 ^ IDX0
 
 OPERATORS
-+ 2 SETS IDX1 TO IDX1 + IDX0
-- 2 SETS IDX1 TO IDX1 - IDX0
-* 2 SETS IDX1 TO IDX1 * IDX0
-/ 2 SETS IDX1 TO IDX1 / IDX0
-% 2 SETS IDX1 TO IDX1 % IDX0
-P 2 SETS IDX1 TO IDX1 ^ IDX0
++* 2 SETS IDX1 TO IDX1 + IDX0
+-* 2 SETS IDX1 TO IDX1 - IDX0
+** 2 SETS IDX1 TO IDX1 * IDX0
+/* 2 SETS IDX1 TO IDX1 / IDX0
+%* 2 SETS IDX1 TO IDX1 % IDX0
+P* 2 SETS IDX1 TO IDX1 ^ IDX0
 = 2 SETS IDX0 TO IDX1
-I 1 SETS IDX0 TO IDX0 + 1
+I* 1 SETS IDX0 TO IDX0 + 1
 
 COMPARISON
 G 2 [RIGHT] IF IDX1 > IDX0, ELSE [LEFT]

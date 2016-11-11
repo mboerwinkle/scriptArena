@@ -12,7 +12,7 @@ Actor::Actor(Map* myMap, int x, int y, int z){
 	mem = new Stack(this);
 	printf("Actor created at %d %d %d on \"%c\"\n", x, y, z, myMap->get(pos));
 }
-void Actor::tick(){//executes, then moves.
+int Actor::tick(){//executes, then moves.
 	char c = myMap->get(pos);
 	//execute
 	if(isDir(c)){
@@ -22,29 +22,45 @@ void Actor::tick(){//executes, then moves.
 	}else if(isReg(c)){
 		mem->push(c);
 	}else if(isExec(c)){
-		exec(c);
+		if(exec(c)){
+			return 1;
+		}
 	}
 	//move
 	move();//FIXME moves happen regardless of whether or not a command changed the position.
 	enforceBounds();
+	return 0;
 }
-void Actor::exec(char c){
+int Actor::exec(char c){
 	switch(c){
 	case '+':
-		add();
+		mem->add();
+		break;
+	case '-':
+		mem->subtract();
+		break;
+	case '*':
+		mem->multiply();
+		break;
+	case '/':
+		mem->divide();
+		break;
+	case '%':
+		mem->modulo();
+		break;
+	case 'P':
+		mem->power();
+		break;
+	case 'I':
+		mem->increment();
 		break;
 	case 'K':
-		printf("killed %d\n", mem->pop().read());
-		break;
+		printf("killed %d\n", mem->pop().read());;
+		return 1;
 	default:
 		puts("exec call failed");
 	}
-}
-void Actor::add(){
-		int one = mem->pop().read();
-		Obj two = mem->pop();
-		two.write(two.read()+one);
-		mem->push(two);	
+	return 0;
 }
 void Actor::move(){
 	switch(dir){

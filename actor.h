@@ -8,14 +8,12 @@ public:
 	Actor(Map* myMap, int x, int y, int z);
 	int pos[3];
 	char dir = '>';
-	void tick();
+	int tick();
 	Map* myMap;
 private:
 	Stack* mem;
-	void exec(char c);
+	int exec(char c);
 	void move();
 	void enforceBounds();
-
-	void add();
 };
 #endif
