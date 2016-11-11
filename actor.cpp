@@ -54,8 +54,22 @@ int Actor::exec(char c){
 	case 'I':
 		mem->increment();
 		break;
+	case '=':
+		mem->equals();
+		break;
+	case '&':
+		mem->andOp();
+		break;
+	case '^':
+		mem->xorOp();
+		break;
+	case '|':
+		mem->orOp();
+		break;
+	case 'O':
+		printf("output %d\n", mem->pop().read());
 	case 'K':
-		printf("killed %d\n", mem->pop().read());;
+		printf("killed %d\n", mem->pop().read());
 		return 1;
 	default:
 		puts("exec call failed");

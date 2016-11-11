@@ -54,4 +54,26 @@ void Stack::increment(){
 	one.write(one.read()+1);
 	push(one);
 }
-
+void Stack::equals(){
+	Obj one = pop();
+	one.write(pop().read());
+	push(one);
+}
+void Stack::andOp(){
+	int one = pop().read();
+	Obj two = pop();
+	two.write(two.read()&one);
+	push(two);
+}
+void Stack::xorOp(){
+	int one = pop().read();
+	Obj two = pop();
+	two.write(two.read()^one);
+	push(two);
+}
+void Stack::orOp(){
+	int one = pop().read();
+	Obj two = pop();
+	two.write(two.read()|one);
+	push(two);
+}

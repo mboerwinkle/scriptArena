@@ -24,7 +24,10 @@ public:
 	void modulo();
 	void power();
 	void increment();
-
+	void equals();
+	void andOp();
+	void xorOp();
+	void orOp();
 private:
 	std::vector<Obj> data;
 };
