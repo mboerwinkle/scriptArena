@@ -9,7 +9,7 @@ Actor::Actor(Map* myMap, int x, int y, int z){
 	pos[1] = y;
 	pos[2] = z;
 	this->myMap = myMap;
-	memcpy(reg, myMap->reg, 26);
+	mem = new Stack(this);
 	printf("Actor created at %d %d %d on \"%c\"\n", x, y, z, myMap->get(pos));
 }
 void Actor::tick(){//executes, then moves.
@@ -18,9 +18,9 @@ void Actor::tick(){//executes, then moves.
 	if(isDir(c)){
 		dir = c;
 	}else if(isNum(c)){
-		stck_pushVal(c-48);
+		mem->push((int)(c-48));
 	}else if(isReg(c)){
-		stck_pushRef(c);
+		mem->push(c);
 	}else if(isExec(c)){
 		exec(c);
 	}
@@ -29,24 +29,22 @@ void Actor::tick(){//executes, then moves.
 	enforceBounds();
 }
 void Actor::exec(char c){
-	int addition;
-	value base;
 	switch(c){
 	case '+':
-		addition = stck_popInt();
-		base = stck_popVal();
-		if(base.ref){//result written to base
-			writeRef(base.reg, evalRef(base.reg)+addition);
-		}else{//result written to stack
-			stck_pushVal(base.val+addition);
-		}
+		add();
 		break;
 	case 'K':
-		printf("killed %d\n", stck_popInt());
+		printf("killed %d\n", mem->pop().read());
 		break;
 	default:
 		puts("exec call failed");
 	}
+}
+void Actor::add(){
+		int one = mem->pop().read();
+		Obj two = mem->pop();
+		two.write(two.read()+one);
+		mem->push(two);	
 }
 void Actor::move(){
 	switch(dir){
@@ -81,52 +79,4 @@ void Actor::enforceBounds(){
 			pos[temp]-=LEN;
 		}
 	}
-}
-int Actor::stck_popInt(){
-	value val = stack.back();
-	int ret;
-	if(val.ref){
-		ret = evalRef(val.reg);
-	}else{
-		ret = val.val;
-	}
-	stack.pop_back();
-	return ret;
-}
-bool Actor::stck_isRef(){
-	return stack.back().reg;
-}
-value Actor::stck_popVal(){
-	value ret = stack.back();
-	stack.pop_back();
-	return ret;
-}
-void Actor::writeRef(char ref, int val){
-	if(ref >= 97 && ref <= 122){//a-z
-		reg[ref-97] = val;
-	}
-	if(ref >= 88 && ref <= 90){//XYZ
-		pos[ref-88] = val;
-	}
-}
-int Actor::evalRef(char ref){
-	if(ref >= 97 && ref <= 122){//a-z
-		return reg[ref-97];
-	}
-	if(ref >= 88 && ref <= 90){//XYZ
-		return pos[ref-88];
-	}
-	return 0;
-}
-void Actor::stck_pushVal(int v){
-	value val;
-	val.ref = false;
-	val.val = v;
-	stack.push_back(val);
-}
-void Actor::stck_pushRef(char r){
-	value val;
-	val.ref = true;
-	val.reg = r;
-	stack.push_back(val);
 }
