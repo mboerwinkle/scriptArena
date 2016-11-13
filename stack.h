@@ -12,6 +12,7 @@ public:
 	void push(Obj in);
 	void push(char reg);
 	void push(int val);
+	int len();
 	Obj pop();
 	Obj read(int idx);
 	Actor* myActor;
@@ -28,6 +29,9 @@ public:
 	void andOp();
 	void xorOp();
 	void orOp();
+
+	//tests (turn left or right)
+	bool testEqual();
 private:
 	std::vector<Obj> data;
 };

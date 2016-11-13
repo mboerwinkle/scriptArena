@@ -16,9 +16,9 @@ int Actor::tick(){//executes, then moves.
 	char c = myMap->get(pos);
 	//execute
 	if(isDir(c)){
-		dir = c;
+		dir = strchr(dirStr, c)-dirStr;
 	}else if(isNum(c)){
-		mem->push((int)(c-48));
+		mem->push((int)(c-'0'));
 	}else if(isReg(c)){
 		mem->push(c);
 	}else if(isExec(c)){
@@ -66,8 +66,12 @@ int Actor::exec(char c){
 	case '|':
 		mem->orOp();
 		break;
+	case 'E':
+		dir = (dir + (mem->testEqual() ? 3 : 1)) % 4;
+		break;
 	case 'O':
 		printf("output %d\n", mem->pop().read());
+		break;
 	case 'K':
 		printf("killed %d\n", mem->pop().read());
 		return 1;
@@ -78,26 +82,20 @@ int Actor::exec(char c){
 }
 void Actor::move(){
 	switch(dir){
-	case 'A':
-		pos[1]--;
-		break;
-	case 'V':
-		pos[1]++;
-		break;
-	case '<':
-		pos[0]--;
-		break;
-	case '>':
+	case 0:
 		pos[0]++;
 		break;
-	case 'U':
-		pos[2]--;
+	case 1:
+		pos[1]--;
 		break;
-	case 'D':
-		pos[2]++;
+	case 2:
+		pos[0]--;
+		break;
+	case 3:
+		pos[1]++;
 		break;
 	default:
-		printf("Failed movement direction \"%c\"\n", dir);
+		printf("Failed movement direction \"%hhd\"\n", dir);
 	}
 }
 void Actor::enforceBounds(){

@@ -27,10 +27,8 @@ A* 0 [north]
 V* 0 [south]
 <* 0 [west]
 >* 0 [east]
-U* 0 [up]
-D* 0 [down]
 S 1 skip in direction by IDX0
-T 3 teleport to IDX2, IDX1, IDX0
+T 3 teleport to IDX1, IDX0
 
 LOGICAL OPERATORS
 &* 2 SETS IDX1 TO IDX1 & IDX0

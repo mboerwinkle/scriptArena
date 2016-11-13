@@ -77,3 +77,6 @@ void Stack::orOp(){
 	two.write(two.read()|one);
 	push(two);
 }
+bool Stack::testEqual(){
+	return pop().read() == pop().read();
+}

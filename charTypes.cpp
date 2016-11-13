@@ -1,9 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "charTypes.h"
 
+const char *dirStr = ">A<V";
+
 bool isDir(char i){
-	if(i == 'A'||i == 'V'||i == '<'||i == '>'||i == 'U'||i == 'D') return true;
+	if(i == 'A' || i == '>' || i == '<' || i == 'V'){
+		return true;
+	}
 	return false;
 }
 bool isNum(char i){

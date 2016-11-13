@@ -14,6 +14,9 @@ void Stack::push(char reg){
 void Stack::push(int val){
 	data.push_back(Obj(this, val));
 }
+int Stack::len(){
+	return data.size();
+}
 Obj Stack::pop(){
 	Obj ret = data.back();
 	data.pop_back();

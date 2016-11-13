@@ -10,8 +10,8 @@ public:
 	char dir = '>';
 	int tick();
 	Map* myMap;
-private:
 	Stack* mem;
+private:
 	int exec(char c);
 	void move();
 	void enforceBounds();
