@@ -29,8 +29,15 @@ public:
 	void andOp();
 	void xorOp();
 	void orOp();
+	void stdinput();
+	void teleport();
+	void skip();
 
 	//tests (turn left or right)
+	bool testIf();
+	int testCompare();
+	bool testGreater();
+	bool testLess();
 	bool testEqual();
 private:
 	std::vector<Obj> data;

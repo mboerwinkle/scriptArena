@@ -77,6 +77,31 @@ void Stack::orOp(){
 	two.write(two.read()|one);
 	push(two);
 }
+void Stack::stdinput(){
+	printf("Input: ");
+	int input;
+	scanf("%d\n", &input);
+	push(input);
+}
+int Stack::testCompare(){
+	int val = pop().read() - pop().read();
+	if(val == 0){//equal
+		return 0;//straight
+	}else if(val < 0){//greater
+		return 3;//right
+	}else{//less
+		return 1;//left
+	}
+}
+bool Stack::testGreater(){
+	return pop().read() - pop().read() < 0;
+}
+bool Stack::testLess(){
+	return pop().read() - pop().read() > 0;
+}
 bool Stack::testEqual(){
-	return pop().read() == pop().read();
+	return pop().read() - pop().read() == 0;
+}
+bool Stack::testIf(){
+	return pop().read() != 0;
 }

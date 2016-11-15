@@ -69,9 +69,23 @@ int Actor::exec(char c){
 	case 'E':
 		dir = (dir + (mem->testEqual() ? 3 : 1)) % 4;
 		break;
+	case 'G':
+		dir = (dir + (mem->testGreater() ? 3 : 1)) % 4;
+		break;
+	case 'L':
+		dir = (dir + (mem->testLess() ? 3 : 1)) % 4;
+		break;
+	case 'C':
+		dir = (dir + mem->testCompare()) % 4;
+		break;
+	case ':':
+		dir = (dir + (mem->testIf() ? 3 : 1)) % 4;
+		break;
 	case 'O':
 		printf("output %d\n", mem->pop().read());
 		break;
+	case 'Q'://like for query
+		mem->stdinput();
 	case 'K':
 		printf("killed %d\n", mem->pop().read());
 		return 1;
